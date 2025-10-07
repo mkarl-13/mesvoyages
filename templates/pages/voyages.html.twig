@@ -4,22 +4,34 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="text-left" scope="col">
+                <th class="text-left align-top" scope="col">
                     Ville
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"ville", ordre:"ASC"}) }}" role="button"><</a>
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"ville", ordre:"DESC"}) }}" role="button">></a>
+                    <form class="form-inline mt-1" method="POST" action="{{ path("voyages.findallequal", {champ:"ville"}) }}">
+                        <div class="form-group mr-1 mb-2">
+                            <input type="text" class="sm" name="recherche">
+                            <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
+                        </div>
+                    </form>
                 </th>
-                <th class="text-left" scope="col">
+                <th class="text-left align-top" scope="col">
                     Pays
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"pays", ordre:"ASC"}) }}" role="button"><</a>
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"pays", ordre:"DESC"}) }}" role="button">></a>
+                    <form class="form-inline mt-1" method="POST" action="{{ path("voyages.findallequal", {champ:"pays"}) }}">
+                        <div class="form-group mr-1 mb-2">
+                            <input type="text" class="sm" name="recherche">
+                            <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
+                        </div>
+                    </form>
                 </th>
-                <th class="text-end" scope="col">
+                <th class="text-end align-top" scope="col">
                     Note
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"note", ordre:"ASC"}) }}" role="button"><</a>
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"note", ordre:"DESC"}) }}" role="button">></a>
                 </th>
-                <th class="text-center" scope="col">
+                <th class="text-center align-top" scope="col">
                     Date
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"datecreation", ordre:"ASC"}) }}" role="button"><</a>
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"datecreation", ordre:"DESC"}) }}" role="button">></a>
