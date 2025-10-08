@@ -97,4 +97,16 @@ class VisiteRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($visite);
         $this->getEntityManager()->flush();
     }
+    
+    /**
+     * Récupère les deux dernières visites.
+     * @return array
+     */
+    public function findLastTwo(): array {
+        return $this->createQueryBuilder("v")
+                ->orderBy("v.datecreation", "DESC")
+                ->setMaxResults(2)
+                ->getQuery()
+                ->getResult();
+    }
 }
