@@ -28,6 +28,16 @@
                         </div>
                     </form>
                 </th>
+                <th class="text-left align-top" scope="col">
+                    Environnements
+                    <form class="form-inline mt-1" method="POST" action="{{ path("voyages.findallequal", {champ:"environnement"}) }}">
+                        <div class="form-group mr-1 mb-2">
+                            <input type="text" class="sm" name="recherche">
+                            <input type="hidden" name="_token" value="{{ csrf_token("filtre_environnement") }}">
+                            <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
+                        </div>
+                    </form>
+                </th>
                 <th class="text-end align-top" scope="col">
                     Note
                     <a class="btn btn-primary" href="{{ path("voyages.sort", {champ:"note", ordre:"ASC"}) }}" role="button"><</a>
@@ -48,6 +58,16 @@
                 </td>
                 <td>
                     {{ visite.pays }}
+                </td>
+                <td>
+                    {% for environnement in visite.environnements %}
+                        {{ environnement.nom }}
+                        {% if loop.index is divisible by(3) %}
+                            <br>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    {% endfor %}
                 </td>
                 <td class='text-end'>
                     {% if visite.note<10 %}

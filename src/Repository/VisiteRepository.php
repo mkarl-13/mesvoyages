@@ -109,4 +109,19 @@ class VisiteRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
+    
+    /**
+    * Trouve les visites qui possèdent un environnement donné
+    * @param string $environnement
+    * @return array
+    */
+    public function findByEnvironnement(string $environnement): array {
+    return $this->createQueryBuilder('v')
+        ->innerJoin('v.environnements', 'e')
+        ->where('e.nom LIKE :environnement')
+        ->setParameter('environnement', $environnement)
+        ->orderBy('v.datecreation', 'DESC')
+        ->getQuery()
+        ->getResult();
+    }
 }
