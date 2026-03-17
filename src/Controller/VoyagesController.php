@@ -9,69 +9,75 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Description of VoyagesController
+ * Description of VoyagesController.
  *
  * @author Karl
  */
-class VoyagesController extends AbstractController {
+class VoyagesController extends AbstractController
+{
+    public const PAGE = 'pages/voyages.html.twig';
 
     /**
-     * 
      * @var VisiteRepository
      */
     private $repository;
 
-    /**
-     * 
-     * @param VisiteRepository $repository
-     */
-    public function __construct(VisiteRepository $repository) {
+    public function __construct(VisiteRepository $repository)
+    {
         $this->repository = $repository;
     }
 
     #[Route('/voyages', name: 'voyages')]
-    public function index(): Response {
-        $visites = $this->repository->findAllOrderBy("datecreation", "DESC");
-        return $this->render("pages/voyages.html.twig", [
-                    "visites" => $visites
+    public function index(): Response
+    {
+        $visites = $this->repository->findAllOrderBy('datecreation', 'DESC');
+
+        return $this->render(self::PAGE, [
+            'visites' => $visites,
         ]);
     }
 
-    #[Route("/voyages/tri/{champ}/{ordre}", name: "voyages.sort")]
-    public function sort($champ, $ordre): Response {
+    #[Route('/voyages/tri/{champ}/{ordre}', name: 'voyages.sort')]
+    public function sort($champ, $ordre): Response
+    {
         $visites = $this->repository->findAllOrderBy($champ, $ordre);
-        return $this->render("pages/voyages.html.twig", [
-                    "visites" => $visites
+
+        return $this->render(self::PAGE, [
+            'visites' => $visites,
         ]);
     }
 
-    #[Route("/voyages/recherche/{champ}", name: "voyages.findallequal")]
-    public function findAllEqual($champ, Request $request): Response {
-        if ($this->isCsrfTokenValid("filtre_" . $champ, $request->get("_token"))) {
-            $valeur = $request->get("recherche");
+    #[Route('/voyages/recherche/{champ}', name: 'voyages.findallequal')]
+    public function findAllEqual($champ, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('filtre_'.$champ, $request->get('_token'))) {
+            $valeur = $request->get('recherche');
 
-            if ($champ === "environnement") {
-                if ($valeur !== "") {
+            if ('environnement' === $champ) {
+                if ('' !== $valeur) {
                     $visites = $this->repository->findByEnvironnement($valeur);
                 } else {
-                    $visites = $this->repository->findAllOrderBy("datecreation", "DESC");
+                    $visites = $this->repository->findAllOrderBy('datecreation', 'DESC');
                 }
             } else {
                 $visites = $this->repository->findByEqualValue($champ, $valeur);
             }
-        
-            return $this->render("pages/voyages.html.twig", [
-                "visites" => $visites
+
+            return $this->render(self::PAGE, [
+                'visites' => $visites,
             ]);
         }
-        return $this->redirectToRoute("voyages");
+
+        return $this->redirectToRoute('voyages');
     }
 
-    #[Route("/voyages/voyage/{id}", name: "voyages.showone")]
-    public function showOne($id): Response {
+    #[Route('/voyages/voyage/{id}', name: 'voyages.showone')]
+    public function showOne($id): Response
+    {
         $visite = $this->repository->find($id);
-        return $this->render("pages/voyage.html.twig", [
-                    "visite" => $visite
+
+        return $this->render('pages/voyage.html.twig', [
+            'visite' => $visite,
         ]);
     }
 }

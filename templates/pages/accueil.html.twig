@@ -22,7 +22,7 @@
                     <div class="col d-flex align-items-center">
                         <!-- emplacement photo -->
                         {% if visite.imagename %}
-                            <img src="{{ app.request.getBasePath()~vich_uploader_asset(visite, "imageFile") }}" class="img-fluid">
+                            <img src="{{ app.request.getBasePath()~vich_uploader_asset(visite, "imageFile") }}" class="img-fluid" alt="{{ visite.ville }}">
                         {% else %}
                             <p>(aucune image)</p>
                         {% endif %}

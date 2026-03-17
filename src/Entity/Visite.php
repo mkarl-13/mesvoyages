@@ -8,13 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: VisiteRepository::class)]
 #[Vich\Uploadable]
-class Visite
+class Visite // NOSONAR S1448
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,11 +28,11 @@ class Visite
     private ?string $pays = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Assert\LessThanOrEqual("now")]
+    #[Assert\LessThanOrEqual('now')]
     private ?\DateTime $datecreation = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\Range(min: 0, max:20)]
+    #[Assert\Range(min: 0, max: 20)]
     private ?int $note = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -42,21 +42,21 @@ class Visite
     private ?int $tempmin = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\GreaterThan(propertyPath:"tempmin")]
+    #[Assert\GreaterThan(propertyPath: 'tempmin')]
     private ?int $tempmax = null;
 
-    #[Vich\UploadableField(mapping: "visites", fileNameProperty: "imageName", size: "imageSize")]
+    #[Vich\UploadableField(mapping: 'visites', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
-    
+
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
-    
+
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
-    
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
-    
+
     /**
      * @var Collection<int, Environnement>
      */
@@ -104,13 +104,13 @@ class Visite
 
     public function getDatecreationString(): string
     {
-        if($this->datecreation == null) {
+        if (null == $this->datecreation) {
             return '';
-        } else {
-            return $this->datecreation->format("d/m/Y");
         }
+
+        return $this->datecreation->format('d/m/Y');
     }
-    
+
     public function setDatecreation(?\DateTime $datecreation): static
     {
         $this->datecreation = $datecreation;
@@ -189,48 +189,55 @@ class Visite
 
         return $this;
     }
-    
-    public function getImageFile(): ?File {
+
+    public function getImageFile(): ?File
+    {
         return $this->imageFile;
     }
 
-    public function getImageName(): ?string {
+    public function getImageName(): ?string
+    {
         return $this->imageName;
     }
 
-    public function getImageSize(): ?int {
+    public function getImageSize(): ?int
+    {
         return $this->imageSize;
     }
 
-    public function setImageFile(?File $imageFile): void {
+    public function setImageFile(?File $imageFile): void
+    {
         $this->imageFile = $imageFile;
-        if(null !== $imageFile) {
+        if (null !== $imageFile) {
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
-    public function setImageName(?string $imageName): void {
+    public function setImageName(?string $imageName): void
+    {
         $this->imageName = $imageName;
     }
 
-    public function setImageSize(?int $imageSize): void {
+    public function setImageSize(?int $imageSize): void
+    {
         $this->imageSize = $imageSize;
     }
-    
+
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context) {
+    public function validate(ExecutionContextInterface $context)
+    {
         $file = $this->getImageFile();
-        if($file != null && $file != "") {
+        if (null != $file && '' != $file) {
             $poids = @filesize($file);
-            if($poids != false && $poids > 512000) {
-                $context->buildViolation("Cette image est trop lourde (500Ko max)")
-                ->atPath("imageFile")
+            if (!$poids && $poids > 512000) {
+                $context->buildViolation('Cette image est trop lourde (500Ko max)')
+                ->atPath('imageFile')
                 ->addViolation();
             }
             $infosImage = @getimagesize($file);
-            if ($infosImage == false) {
+            if (!$infosImage) {
                 $context->buildViolation("Ce fichier n'est pas une image")
-                ->atPath("imageFile")
+                ->atPath('imageFile')
                 ->addViolation();
             }
         }

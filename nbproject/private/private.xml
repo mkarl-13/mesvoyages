@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>templates/admin/admin.environnements.html.twig</url>
+            <bookmark id="1">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp64/www/mesvoyages/src/Repository/VisiteRepository.php</file>
+            <file>file:/C:/wamp64/www/mesvoyages/.php-cs-fixer.dist.php</file>
+            <file>file:/C:/wamp64/www/mesvoyages/public/index.php</file>
+            <file>file:/C:/wamp64/www/mesvoyages/templates/pages/voyage.html.twig</file>
+            <file>file:/C:/wamp64/www/mesvoyages/phpunit.dist.xml</file>
+            <file>file:/C:/wamp64/www/mesvoyages/src/DataFixtures/UserFixture.php</file>
+            <file>file:/C:/wamp64/www/mesvoyages/importmap.php</file>
+            <file>file:/C:/wamp64/www/mesvoyages/.env</file>
+            <file>file:/C:/wamp64/www/mesvoyages/sonar-project.properties</file>
+            <file>file:/C:/wamp64/www/mesvoyages/templates/basefront.html.twig</file>
+            <file>file:/C:/wamp64/www/mesvoyages/.env.test</file>
+            <file>file:/C:/wamp64/www/mesvoyages/.env.dev</file>
+            <file>file:/C:/wamp64/www/mesvoyages/.gitignore</file>
+            <file>file:/C:/wamp64/www/mesvoyages/templates/base.html.twig</file>
+            <file>file:/C:/wamp64/www/mesvoyages/config/services.yaml</file>
+            <file>file:/C:/wamp64/www/mesvoyages/symfony.lock</file>
+            <file>file:/C:/wamp64/www/mesvoyages/templates/pages/voyages.html.twig</file>
+            <file>file:/C:/wamp64/www/mesvoyages/src/Controller/VoyagesController.php</file>
+        </group>
+    </open-files>
+</project-private>

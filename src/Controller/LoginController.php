@@ -16,14 +16,16 @@ final class LoginController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // récupération éventuelle du dernier nom de login utilisé
         $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error
+            'error' => $error,
         ]);
     }
-    
+
     #[Route('/logout', name: 'logout')]
-    public function logout() {
-        
+    public function logout()
+    {
+        // sert a la gestion de la déconnexion, géré par symfony security.
     }
 }

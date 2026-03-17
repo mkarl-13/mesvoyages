@@ -11,19 +11,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Description of ContactType
+ * Description of ContactType.
  *
  * @author Karl
  */
-class ContactType extends AbstractType {
-        public function buildForm(FormBuilderInterface $builder, array $options): void
+class ContactType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add("nom", TextType::class)
-            ->add("email", TextType::class)
-            ->add("message", TextareaType::class)
-            ->add("submit", SubmitType::class, [
-                "label" => "Envoyer"
+            ->add('nom', TextType::class)
+            ->add('email', TextType::class)
+            ->add('message', TextareaType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer',
             ])
         ;
     }

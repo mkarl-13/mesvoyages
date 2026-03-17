@@ -4,30 +4,31 @@ namespace App\Tests;
 
 use App\Entity\Environnement;
 use App\Entity\Visite;
-use DateTime;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Description of VisiteTest
+ * Description of VisiteTest.
  *
  * @author Karl
  */
-
-class VisiteTest extends TestCase {
-    public function testGetDatecreationString(){
+class VisiteTest extends TestCase
+{
+    public function testGetDatecreationString()
+    {
         $visite = new Visite();
-        $visite->setDateCreation(new DateTime("2024-04-24"));
-        $this->assertEquals("24/04/2024", $visite->getDatecreationString());
+        $visite->setDateCreation(new \DateTime('2024-04-24'));
+        $this->assertEquals('24/04/2024', $visite->getDatecreationString());
     }
-    
-    public function testAddEnvironnement(){
+
+    public function testAddEnvironnement()
+    {
         $environnement = new Environnement();
-        $environnement->setNom("plage");
+        $environnement->setNom('plage');
         $visite = new Visite();
         $visite->addEnvironnement($environnement);
         $nbEnvironnementAvant = $visite->getEnvironnements()->count();
         $visite->addEnvironnement($environnement);
         $nbEnvironnementApres = $visite->getEnvironnements()->count();
-        $this->assertEquals($nbEnvironnementAvant, $nbEnvironnementApres, "ajout même environnement devrait échouer");
+        $this->assertEquals($nbEnvironnementAvant, $nbEnvironnementApres, 'ajout même environnement devrait échouer');
     }
 }

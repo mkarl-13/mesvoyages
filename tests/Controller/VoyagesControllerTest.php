@@ -11,43 +11,50 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of VoyagesControllerTest
+ * Description of VoyagesControllerTest.
  *
  * @author Karl
  */
-class VoyagesControllerTest extends WebTestCase {
-    public function testAccesPage(){
+class VoyagesControllerTest extends WebTestCase
+{
+    public const PAGE = '/voyages';
+
+    public function testAccesPage()
+    {
         $client = static::createClient();
-        $client->request("GET", "/voyages");
+        $client->request('GET', PAGE);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-    
-    public function testContenuPage(){
+
+    public function testContenuPage()
+    {
         $client = static::createClient();
-        $crawler = $client->request("GET", "/voyages");
-        $this->assertSelectorTextContains("h1", "Mes voyages");
-        $this->assertSelectorTextContains("th", "Ville");
-        $this->assertCount(4, $crawler->filter("th"));
-        $this->assertSelectorTextContains("h5", "Dipolog");
+        $crawler = $client->request('GET', PAGE);
+        $this->assertSelectorTextContains('h1', 'Mes voyages');
+        $this->assertSelectorTextContains('th', 'Ville');
+        $this->assertCount(4, $crawler->filter('th'));
+        $this->assertSelectorTextContains('h5', 'Dipolog');
     }
-    
-    public function testLinkVille(){
+
+    public function testLinkVille()
+    {
         $client = static::createClient();
-        $client->request("GET","/voyages");
-        $client->clickLink("Dipolog");
+        $client->request('GET', PAGE);
+        $client->clickLink('Dipolog');
         $response = $client->getResponse();
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-        $uri = $client->getRequest()->server->get("REQUEST_URI");
-        $this->assertEquals("/voyages/voyage/69", $uri);
+        $uri = $client->getRequest()->server->get('REQUEST_URI');
+        $this->assertEquals('/voyages/voyage/69', $uri);
     }
-    
-    public function testFiltreVille(){
+
+    public function testFiltreVille()
+    {
         $client = static::createClient();
-        $client->request("GET","/voyages");
-        $crawler = $client->submitForm("filtrer", [
-            "recherche" => "Dipolog"
+        $client->request('GET', PAGE);
+        $crawler = $client->submitForm('filtrer', [
+            'recherche' => 'Dipolog',
         ]);
-        $this->assertCount(1, $crawler->filter("h5"));
-        $this->assertSelectorTextContains("h5", "Dipolog");
+        $this->assertCount(1, $crawler->filter('h5'));
+        $this->assertSelectorTextContains('h5', 'Dipolog');
     }
 }

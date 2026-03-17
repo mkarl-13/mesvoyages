@@ -10,22 +10,24 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserFixture extends Fixture
 {
     private $passwordHasher;
-    
-    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+
+    public function __construct(
+        UserPasswordHasherInterface $passwordHasher,
+        private string $fixtureUserPassword,
+    ) {
         $this->passwordHasher = $passwordHasher;
     }
-    
+
     public function load(ObjectManager $manager): void
     {
         $user = new User();
-        $user->setUsername("admin");
-        $plaintextPassword = "admin";
+        $user->setUsername('admin');
         $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,
-                $plaintextPassword
+            $user,
+            $this->fixtureUserPassword
         );
         $user->setPassword($hashedPassword);
-        $user->setRoles(["ROLE_ADMIN"]);
+        $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
         $manager->flush();
     }
